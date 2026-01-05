@@ -3,9 +3,11 @@ name: Daily S&P 500 Momentum Tracker
 
 on:
   schedule:
-    - cron: '30 21 * * 1-5'  # Set to UTC
+    # Runs at 4:30 PM ET (9:30 PM UTC) Monday-Friday
+    # Adjust for daylight saving time as needed
+    - cron: '30 21 * * 1-5'  # 9:30 PM UTC = 4:30 PM ET (EST)
   
-  workflow_dispatch:
+  workflow_dispatch:  # Allows manual triggering from GitHub UI
 
 jobs:
   run-tracker:
@@ -18,7 +20,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: '3.10'
+        python-version: '3.11'
         
     - name: Install dependencies
       run: |
@@ -38,7 +40,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
     - name: Upload data as artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: sp500-data-${{ github.run_number }}
         path: sp500_momentum_data/
