@@ -3,9 +3,8 @@ name: Daily S&P 500 Momentum Tracker
 
 on:
   schedule:
-    # Runs at 4:30 PM ET (9:30 PM UTC) Monday-Friday
-    # Adjust for daylight saving time as needed
-    - cron: '30 21 * * 1-5'  # 9:30 PM UTC = 4:30 PM ET (EST)
+    # Runs at 6:00 PM ET to allow yfinance to update prices
+    - cron: '0 22 * * 1-5'
   
   workflow_dispatch:  # Allows manual triggering from GitHub UI
 
